@@ -4,15 +4,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-START_TEST (test_insert)
+START_TEST (test_init)
 {
+    LinkedList list;
+    emlist_initialize(&list);
+    ck_assert(list.head == NULL);
 }
 END_TEST
 
 Suite* suite(void) {
     Suite* s = suite_create("queue");
     TCase *tc_core = tcase_create("core");
-    tcase_add_test(tc_core, test_insert);
+    tcase_add_test(tc_core, test_init);
     suite_add_tcase(s, tc_core);
 
     return s;
