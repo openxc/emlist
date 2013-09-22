@@ -68,6 +68,19 @@ START_TEST (test_is_empty)
 }
 END_TEST
 
+START_TEST (test_clear)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    emlist_insert(&list, (void*)1);
+    emlist_insert(&list, (void*)2);
+    emlist_insert(&list, (void*)3);
+    ck_assert(!emlist_is_empty(&list));
+    emlist_clear(&list);
+    ck_assert(emlist_is_empty(&list));
+}
+END_TEST
+
 Suite* suite(void) {
     Suite* s = suite_create("queue");
     TCase *tc_core = tcase_create("core");
@@ -77,6 +90,7 @@ Suite* suite(void) {
     tcase_add_test(tc_core, test_remove);
     tcase_add_test(tc_core, test_remove_not_in_list);
     tcase_add_test(tc_core, test_is_empty);
+    tcase_add_test(tc_core, test_clear);
     suite_add_tcase(s, tc_core);
 
     return s;

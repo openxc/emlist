@@ -60,6 +60,13 @@ bool emlist_remove(LinkedList* list, void* value) {
 }
 
 void emlist_clear(LinkedList* list) {
+    LinkedListElement* candidate = list->head;
+    while(candidate != NULL) {
+        LinkedListElement* next = candidate->next;
+        free(candidate);
+        candidate = next;
+    }
+    emlist_initialize(list);
 }
 
 void emlist_size(LinkedList* list) {
