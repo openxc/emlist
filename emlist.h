@@ -28,8 +28,6 @@ void emlist_size(LinkedList* list);
 
 bool emlist_is_empty(LinkedList* list);
 
-
-
 #ifdef __cplusplus
 }
 #endif

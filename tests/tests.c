@@ -12,10 +12,33 @@ START_TEST (test_init)
 }
 END_TEST
 
+START_TEST (test_insert)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    void* value = (void*)1;
+    emlist_insert(&list, value);
+    ck_assert(emlist_contains(&list, value));
+}
+END_TEST
+
+START_TEST (test_contains)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    void* value = (void*)1;
+    emlist_insert(&list, value);
+    ck_assert(emlist_contains(&list, value));
+    ck_assert(!emlist_contains(&list, (void*)2));
+}
+END_TEST
+
 Suite* suite(void) {
     Suite* s = suite_create("queue");
     TCase *tc_core = tcase_create("core");
     tcase_add_test(tc_core, test_init);
+    tcase_add_test(tc_core, test_insert);
+    tcase_add_test(tc_core, test_contains);
     suite_add_tcase(s, tc_core);
 
     return s;
