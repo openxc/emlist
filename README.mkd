@@ -6,6 +6,22 @@ pointers.
 
 ## Projects using Emqueue
 
+## Examples
+
+    #include "emlist.h"
+
+    LinkedList* list = emlist_create();
+
+    char* a_value = "foo";
+    emlist_insert(list, (void*)a_value);
+
+    bool contains = emlist_contains(list, (void*) a_value);
+    // contains == true
+
+    emlist_remove((void*)a_value);
+
+    emlist_destroy(list);
+
 ## License
 
 This library is licensed under the BSD license and is Copyright 2013,
