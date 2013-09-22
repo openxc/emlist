@@ -1,0 +1,16 @@
+Generic C List for Embedded Systems
+====================================
+
+This library is an implementation of a linked list in C that holds void
+pointers.
+
+## Projects using Emqueue
+
+## License
+
+This library is licensed under the BSD license and is Copyright 2013,
+Ford Motor Company
+
+## Contributors
+
+* Chris Peplin, cpeplin@ford.com
