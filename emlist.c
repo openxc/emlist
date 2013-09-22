@@ -41,6 +41,22 @@ void emlist_insert(LinkedList* list, void* value) {
 }
 
 bool emlist_remove(LinkedList* list, void* value) {
+    LinkedListElement* prev = NULL;
+    LinkedListElement* next = list->head;
+    while(next != NULL) {
+        if(next->value == value) {
+            if(prev == NULL) {
+                list->head = next->next;
+            } else {
+                prev->next = next->next;
+            }
+            free(next);
+            return true;
+        }
+        prev = next;
+        next = next->next;
+    }
+    return false;
 }
 
 void emlist_clear(LinkedList* list) {
@@ -50,4 +66,5 @@ void emlist_size(LinkedList* list) {
 }
 
 bool emlist_is_empty(LinkedList* list) {
+    return list->head == NULL;
 }

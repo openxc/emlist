@@ -33,12 +33,50 @@ START_TEST (test_contains)
 }
 END_TEST
 
+START_TEST (test_remove)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    void* value = (void*)1;
+    emlist_insert(&list, value);
+    ck_assert(emlist_contains(&list, value));
+    ck_assert(emlist_remove(&list, value));
+    ck_assert(!emlist_contains(&list, value));
+}
+END_TEST
+
+START_TEST (test_remove_not_in_list)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    void* value = (void*)1;
+    emlist_insert(&list, value);
+    ck_assert(emlist_contains(&list, value));
+    ck_assert(!emlist_remove(&list, (void*)2));
+    ck_assert(emlist_contains(&list, value));
+}
+END_TEST
+
+START_TEST (test_is_empty)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    void* value = (void*)1;
+    ck_assert(emlist_is_empty(&list));
+    emlist_insert(&list, value);
+    ck_assert(!emlist_is_empty(&list));
+}
+END_TEST
+
 Suite* suite(void) {
     Suite* s = suite_create("queue");
     TCase *tc_core = tcase_create("core");
     tcase_add_test(tc_core, test_init);
     tcase_add_test(tc_core, test_insert);
     tcase_add_test(tc_core, test_contains);
+    tcase_add_test(tc_core, test_remove);
+    tcase_add_test(tc_core, test_remove_not_in_list);
+    tcase_add_test(tc_core, test_is_empty);
     suite_add_tcase(s, tc_core);
 
     return s;
