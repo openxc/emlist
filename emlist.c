@@ -7,6 +7,19 @@
 
 // TODO would a static array backed implementation be useful, too?
 
+LinkedList* emlist_create() {
+    LinkedList* list = (LinkedList*) malloc(sizeof(LinkedList));
+    list->head = NULL;
+    return list;
+}
+
+void emlist_destroy(LinkedList* list) {
+    if(list != NULL) {
+        emlist_clear(list);
+        free(list);
+    }
+}
+
 void emlist_initialize(LinkedList* list) {
     list->head = NULL;
 }
@@ -22,7 +35,7 @@ bool emlist_contains(LinkedList* list, void* value) {
     return false;
 }
 
-void emlist_insert(LinkedList* list, void* value) {
+bool emlist_insert(LinkedList* list, void* value) {
     LinkedListElement* element = (LinkedListElement*) malloc(
             sizeof(LinkedListElement));
     if(element != NULL) {
