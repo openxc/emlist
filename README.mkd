@@ -1,7 +1,7 @@
 Generic C List for Embedded Systems
 ====================================
 
-This library is an implementation of a linked list in C that holds void
+This library is an implementation of a singly linked list in C that holds void
 pointers.
 
 ## Projects using Emqueue
