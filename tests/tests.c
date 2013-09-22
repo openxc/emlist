@@ -81,6 +81,22 @@ START_TEST (test_clear)
 }
 END_TEST
 
+START_TEST (test_size)
+{
+    LinkedList list;
+    emlist_initialize(&list);
+    ck_assert_int_eq(0, emlist_size(&list));
+    emlist_insert(&list, (void*)1);
+    ck_assert_int_eq(1, emlist_size(&list));
+    emlist_insert(&list, (void*)2);
+    ck_assert_int_eq(2, emlist_size(&list));
+    emlist_insert(&list, (void*)3);
+    ck_assert_int_eq(3, emlist_size(&list));
+    emlist_clear(&list);
+    ck_assert_int_eq(0, emlist_size(&list));
+}
+END_TEST
+
 Suite* suite(void) {
     Suite* s = suite_create("queue");
     TCase *tc_core = tcase_create("core");
@@ -91,6 +107,7 @@ Suite* suite(void) {
     tcase_add_test(tc_core, test_remove_not_in_list);
     tcase_add_test(tc_core, test_is_empty);
     tcase_add_test(tc_core, test_clear);
+    tcase_add_test(tc_core, test_size);
     suite_add_tcase(s, tc_core);
 
     return s;

@@ -69,7 +69,14 @@ void emlist_clear(LinkedList* list) {
     emlist_initialize(list);
 }
 
-void emlist_size(LinkedList* list) {
+int emlist_size(LinkedList* list) {
+    int size = 0;
+    LinkedListElement* element = list->head;
+    while(element != NULL) {
+        ++size;
+        element = element->next;
+    }
+    return size;
 }
 
 bool emlist_is_empty(LinkedList* list) {

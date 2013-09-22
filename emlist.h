@@ -24,7 +24,7 @@ bool emlist_remove(LinkedList* list, void* value);
 
 void emlist_clear(LinkedList* list);
 
-void emlist_size(LinkedList* list);
+int emlist_size(LinkedList* list);
 
 bool emlist_is_empty(LinkedList* list);
 
