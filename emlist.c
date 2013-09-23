@@ -24,12 +24,12 @@ void emlist_initialize(LinkedList* list) {
 }
 
 bool emlist_contains(LinkedList* list, void* value) {
-    LinkedListElement* candidate = list->head;
-    while(candidate != NULL) {
+    LinkedListIterator iterator = emlist_iterator(list);
+    LinkedListElement* candidate = NULL;
+    while((candidate = emlist_iterator_next(&iterator)) != NULL) {
         if(candidate->value == value) {
             return true;
         }
-        candidate = candidate->next;
     }
     return false;
 }
@@ -43,9 +43,11 @@ bool emlist_insert(LinkedList* list, void* value) {
         if(emlist_is_empty(list)) {
             list->head = element;
         } else {
-            LinkedListElement* current = list->head;
-            while(current->next != NULL) {
-                current = current->next;
+            LinkedListIterator iterator = emlist_iterator(list);
+            LinkedListElement* current = NULL;
+            while((current = emlist_iterator_next(&iterator)) != NULL
+                    && current->next != NULL) {
+                continue;
             }
             current->next = element;
         }
@@ -54,8 +56,9 @@ bool emlist_insert(LinkedList* list, void* value) {
 
 bool emlist_remove(LinkedList* list, void* value) {
     LinkedListElement* prev = NULL;
-    LinkedListElement* next = list->head;
-    while(next != NULL) {
+    LinkedListElement* next = NULL;
+    LinkedListIterator iterator = emlist_iterator(list);
+    while((next = emlist_iterator_next(&iterator)) != NULL) {
         if(next->value == value) {
             if(prev == NULL) {
                 list->head = next->next;
@@ -66,21 +69,32 @@ bool emlist_remove(LinkedList* list, void* value) {
             return true;
         }
         prev = next;
-        next = next->next;
     }
     return false;
 }
 
 int emlist_size(LinkedList* list) {
     int size = 0;
-    LinkedListElement* element = list->head;
-    while(element != NULL) {
+    LinkedListIterator iterator = emlist_iterator(list);
+    LinkedListElement* element = NULL;
+    while((element = emlist_iterator_next(&iterator)) != NULL) {
         ++size;
-        element = element->next;
     }
     return size;
 }
 
 bool emlist_is_empty(LinkedList* list) {
     return list->head == NULL;
+}
+
+LinkedListIterator emlist_iterator(LinkedList* list) {
+    LinkedListIterator iterator;
+    iterator.next = list->head;
+    return iterator;
+}
+
+LinkedListElement* emlist_iterator_next(LinkedListIterator* iterator) {
+    LinkedListElement* next = iterator->next;
+    iterator->next = next != NULL ? next->next : NULL;
+    return next;
 }

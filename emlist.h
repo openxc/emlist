@@ -16,6 +16,10 @@ struct LinkedList {
    LinkedListElement* head;
 };
 
+struct LinkedListIterator {
+   LinkedListElement* next;
+};
+
 /* Public: Allocate and initialize a new, empty LinkedList.
  *
  * This allocates memory for the list, so make sure to call
@@ -53,6 +57,7 @@ bool emlist_contains(LinkedList* list, void* value);
 /* Public: Insert a value into the list.
  *
  * This function is O(n).
+ * TODO prepend so this can be O(1).
  *
  * Returns true if the value was inserted successfully. Returns false if memory
  * could not be allocated for the new element.
@@ -87,6 +92,10 @@ int emlist_size(LinkedList* list);
  * Returns true if the list is empty.
  */
 bool emlist_is_empty(LinkedList* list);
+
+LinkedListIterator emlist_iterator(LinkedList* list);
+
+LinkedListElement*  emlist_iterator_next(LinkedListIterator* iterator);
 
 #ifdef __cplusplus
 }
