@@ -25,7 +25,10 @@ struct LinkedList {
  */
 LinkedList* emlist_create();
 
-/* Public: Free all memory associated with the list and its elements.
+/* Public: De-allocate memory for the list.
+ *
+ * Be aware that if the list is not empty, this will leak memory - you must
+ * remove and de-allocate the objects the list yourself.
  */
 void emlist_destroy(LinkedList* list);
 
@@ -58,18 +61,16 @@ bool emlist_insert(LinkedList* list, void* value);
 
 /* Public: Remove a value from the list, if it is in the list.
  *
+ * This does not free any memory associated with the value, so remember to free
+ * it yourself after removing from the list if necessary - you will leak memory
+ * otherwise.
+ *
  * This function is O(n).
  *
  * Returns true if the value was found in the list and succesfully removed.
  * Returns false if the value was not in the list.
  */
 bool emlist_remove(LinkedList* list, void* value);
-
-/* Public: Remove all elements from the list.
- *
- * This function is O(n).
- */
-void emlist_clear(LinkedList* list);
 
 /* Public: Determine the total size of the list.
  *

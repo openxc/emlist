@@ -68,19 +68,6 @@ START_TEST (test_is_empty)
 }
 END_TEST
 
-START_TEST (test_clear)
-{
-    LinkedList list;
-    emlist_initialize(&list);
-    emlist_insert(&list, (void*)1);
-    emlist_insert(&list, (void*)2);
-    emlist_insert(&list, (void*)3);
-    ck_assert(!emlist_is_empty(&list));
-    emlist_clear(&list);
-    ck_assert(emlist_is_empty(&list));
-}
-END_TEST
-
 START_TEST (test_size)
 {
     LinkedList list;
@@ -92,7 +79,9 @@ START_TEST (test_size)
     ck_assert_int_eq(2, emlist_size(&list));
     emlist_insert(&list, (void*)3);
     ck_assert_int_eq(3, emlist_size(&list));
-    emlist_clear(&list);
+    emlist_remove(&list, (void*)1);
+    emlist_remove(&list, (void*)2);
+    emlist_remove(&list, (void*)3);
     ck_assert_int_eq(0, emlist_size(&list));
 }
 END_TEST
@@ -114,7 +103,6 @@ Suite* suite(void) {
     tcase_add_test(tc_core, test_remove);
     tcase_add_test(tc_core, test_remove_not_in_list);
     tcase_add_test(tc_core, test_is_empty);
-    tcase_add_test(tc_core, test_clear);
     tcase_add_test(tc_core, test_size);
     tcase_add_test(tc_core, test_create);
     suite_add_tcase(s, tc_core);

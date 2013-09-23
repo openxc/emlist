@@ -2,7 +2,11 @@ Generic C List for Embedded Systems
 ====================================
 
 This library is an implementation of a singly linked list in C that holds void
-pointers.
+pointers. The pointers remain the responsibility of the list user - if you
+remove something from the list, you are responsible for freeing any memory
+associated with it.
+
+The list type is `void*`, but it can hold ints with some casting.
 
 ## Projects using Emqueue
 
@@ -17,8 +21,6 @@ pointers.
 
     bool contains = emlist_contains(list, (void*) a_value);
     // contains == true
-
-    emlist_remove(list, (void*)a_value);
 
     emlist_destroy(list);
 
