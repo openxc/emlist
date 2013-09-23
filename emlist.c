@@ -9,7 +9,7 @@
 
 LinkedList* emlist_create() {
     LinkedList* list = (LinkedList*) malloc(sizeof(LinkedList));
-    list->head = NULL;
+    emlist_initialize(list);
     return list;
 }
 
