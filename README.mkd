@@ -18,7 +18,7 @@ pointers.
     bool contains = emlist_contains(list, (void*) a_value);
     // contains == true
 
-    emlist_remove((void*)a_value);
+    emlist_remove(list, (void*)a_value);
 
     emlist_destroy(list);
 

@@ -63,6 +63,7 @@ bool emlist_remove(LinkedList* list, void* value) {
             } else {
                 prev->next = next->next;
             }
+            // TODO we don't free the value pointer that's up to the user
             free(next);
             return true;
         }
@@ -76,6 +77,8 @@ void emlist_clear(LinkedList* list) {
     LinkedListElement* candidate = list->head;
     while(candidate != NULL) {
         LinkedListElement* next = candidate->next;
+        // TODO we are not freeing the value pointer...hard to know if it was
+        // allocated with malloc or not
         free(candidate);
         candidate = next;
     }
