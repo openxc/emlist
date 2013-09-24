@@ -88,17 +88,20 @@ int emlist_size(LinkedList* list) {
 }
 
 bool emlist_is_empty(LinkedList* list) {
-    return list->head == NULL;
+    return list != NULL && list->head == NULL;
 }
 
 LinkedListIterator emlist_iterator(LinkedList* list) {
     LinkedListIterator iterator;
-    iterator.next = list->head;
+    iterator.next = list != NULL ? list->head : NULL;
     return iterator;
 }
 
 LinkedListElement* emlist_iterator_next(LinkedListIterator* iterator) {
-    LinkedListElement* next = iterator->next;
-    iterator->next = next != NULL ? next->next : NULL;
+    LinkedListElement* next = NULL;
+    if(iterator != NULL) {
+        next = iterator->next;
+        iterator->next = next != NULL ? next->next : NULL;
+    }
     return next;
 }
