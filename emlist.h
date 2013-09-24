@@ -1,24 +1,29 @@
 #ifndef _EMLIST_H_
 #define _EMLIST_H_
 
+#include <stdbool.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 struct LinkedListElement {
    void* value;
-   LinkedListElement* next;
+   struct LinkedListElement* next;
 };
+typedef struct LinkedListElement LinkedListElement;
 
 /* Public: A singly linked list of void pointers.
  */
 struct LinkedList {
    LinkedListElement* head;
 };
+typedef struct LinkedList LinkedList;
 
 struct LinkedListIterator {
    LinkedListElement* next;
 };
+typedef struct LinkedListIterator LinkedListIterator;
 
 /* Public: Allocate and initialize a new, empty LinkedList.
  *
