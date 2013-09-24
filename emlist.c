@@ -49,9 +49,13 @@ bool emlist_insert(LinkedList* list, void* value) {
                     && current->next != NULL) {
                 continue;
             }
-            current->next = element;
+            if(current != NULL) {
+                current->next = element;
+            }
         }
+        return true;
     }
+    return false;
 }
 
 bool emlist_remove(LinkedList* list, void* value) {
