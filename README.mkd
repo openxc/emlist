@@ -8,7 +8,28 @@ associated with it.
 
 The list type is `void*`, but it can hold ints with some casting.
 
-## Projects using Emqueue
+## Dependencies
+
+* emlist
+
+To get the dependencies:
+
+    $ git submodule update --init
+
+## Compiling
+
+    $ make
+
+## Test Suite
+
+**Dependencies**
+
+* check
+
+This library has a test suite built with the `check` C library. Run the tests
+like so:
+
+    $ make test
 
 ## Examples
 
