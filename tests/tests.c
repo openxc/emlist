@@ -4,99 +4,92 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+LinkedList* list;
+void* value = (void*)1;
+
+void setup() {
+    list = emlist_create();
+}
+
+void teardown() {
+    emlist_destroy(list);
+}
+
 START_TEST (test_init)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    ck_assert(list.head == NULL);
+    ck_assert(list->head == NULL);
 }
 END_TEST
 
 START_TEST (test_insert)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    void* value = (void*)1;
-    ck_assert(emlist_insert(&list, value));
-    ck_assert(emlist_contains(&list, value));
+    ck_assert(emlist_insert(list, value));
+    ck_assert(emlist_contains(list, value));
 }
 END_TEST
 
 START_TEST (test_contains)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    void* value = (void*)1;
-    emlist_insert(&list, value);
-    ck_assert(emlist_contains(&list, value));
-    ck_assert(!emlist_contains(&list, (void*)2));
+    emlist_insert(list, value);
+    ck_assert(emlist_contains(list, value));
+    ck_assert(!emlist_contains(list, (void*)2));
 }
 END_TEST
 
 START_TEST (test_remove)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    void* value = (void*)1;
-    emlist_insert(&list, value);
-    ck_assert(emlist_contains(&list, value));
-    ck_assert(emlist_remove(&list, value));
-    ck_assert(!emlist_contains(&list, value));
+    emlist_insert(list, value);
+    ck_assert(emlist_contains(list, value));
+    ck_assert(emlist_remove(list, value));
+    ck_assert(!emlist_contains(list, value));
 }
 END_TEST
 
 START_TEST (test_remove_not_in_list)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    void* value = (void*)1;
-    emlist_insert(&list, value);
-    ck_assert(emlist_contains(&list, value));
-    ck_assert(!emlist_remove(&list, (void*)2));
-    ck_assert(emlist_contains(&list, value));
+    emlist_insert(list, value);
+    ck_assert(emlist_contains(list, value));
+    ck_assert(!emlist_remove(list, (void*)2));
+    ck_assert(emlist_contains(list, value));
 }
 END_TEST
 
 START_TEST (test_is_empty)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    void* value = (void*)1;
-    ck_assert(emlist_is_empty(&list));
-    emlist_insert(&list, value);
-    ck_assert(!emlist_is_empty(&list));
+    ck_assert(emlist_is_empty(list));
+    emlist_insert(list, value);
+    ck_assert(!emlist_is_empty(list));
 }
 END_TEST
 
 START_TEST (test_size)
 {
-    LinkedList list;
-    emlist_initialize(&list);
-    ck_assert_int_eq(0, emlist_size(&list));
-    emlist_insert(&list, (void*)1);
-    ck_assert_int_eq(1, emlist_size(&list));
-    emlist_insert(&list, (void*)2);
-    ck_assert_int_eq(2, emlist_size(&list));
-    emlist_insert(&list, (void*)3);
-    ck_assert_int_eq(3, emlist_size(&list));
-    emlist_remove(&list, (void*)1);
-    emlist_remove(&list, (void*)2);
-    emlist_remove(&list, (void*)3);
-    ck_assert_int_eq(0, emlist_size(&list));
+    ck_assert_int_eq(0, emlist_size(list));
+    emlist_insert(list, (void*)1);
+    ck_assert_int_eq(1, emlist_size(list));
+    emlist_insert(list, (void*)2);
+    ck_assert_int_eq(2, emlist_size(list));
+    emlist_insert(list, (void*)3);
+    ck_assert_int_eq(3, emlist_size(list));
+    emlist_remove(list, (void*)1);
+    emlist_remove(list, (void*)2);
+    emlist_remove(list, (void*)3);
+    ck_assert_int_eq(0, emlist_size(list));
 }
 END_TEST
 
 START_TEST (test_create)
 {
-    LinkedList* list = emlist_create();
-    ck_assert(list != NULL);
-    emlist_destroy(list);
+    LinkedList* heapList = emlist_create();
+    ck_assert(heapList != NULL);
+    emlist_destroy(heapList);
 }
 END_TEST
 
 Suite* suite(void) {
     Suite* s = suite_create("queue");
     TCase *tc_core = tcase_create("core");
+    tcase_add_checked_fixture (tc_core, setup, teardown);
     tcase_add_test(tc_core, test_init);
     tcase_add_test(tc_core, test_insert);
     tcase_add_test(tc_core, test_contains);

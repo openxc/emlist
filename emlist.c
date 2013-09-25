@@ -15,6 +15,10 @@ LinkedList* emlist_create() {
 
 void emlist_destroy(LinkedList* list) {
     if(list != NULL) {
+        while(!emlist_is_empty(list)) {
+            emlist_pop(list);
+        }
+
         free(list);
     }
 }
@@ -75,6 +79,16 @@ bool emlist_remove(LinkedList* list, void* value) {
         prev = next;
     }
     return false;
+}
+
+void* emlist_pop(LinkedList* list) {
+    LinkedListElement* element = list->head;
+    if(list->head != NULL) {
+        list->head = list->head->next;
+    }
+    void* value = element->value;
+    free(element);
+    return value;
 }
 
 int emlist_size(LinkedList* list) {

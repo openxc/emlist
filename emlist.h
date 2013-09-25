@@ -37,7 +37,8 @@ LinkedList* emlist_create();
 /* Public: De-allocate memory for the list.
  *
  * Be aware that if the list is not empty, this will leak memory - you must
- * remove and de-allocate the objects the list yourself.
+ * remove and de-allocate the values in the list yourself if they were not on
+ * the stack.
  */
 void emlist_destroy(LinkedList* list);
 
@@ -81,6 +82,18 @@ bool emlist_insert(LinkedList* list, void* value);
  * Returns false if the value was not in the list.
  */
 bool emlist_remove(LinkedList* list, void* value);
+
+/* Public: Remove and return the first value in the list.
+ *
+ * This does not free any memory associated with the value, so remember to free
+ * it yourself after removing from the list if necessary - you will leak memory
+ * otherwise.
+ *
+ * This function is O(1).
+ *
+ * Returns the removed value if the list was not empty, otherwise NULL.
+ */
+void* emlist_pop(LinkedList* list);
 
 /* Public: Determine the total size of the list.
  *
