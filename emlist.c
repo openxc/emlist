@@ -15,11 +15,14 @@ LinkedList* emlist_create() {
 
 void emlist_destroy(LinkedList* list) {
     if(list != NULL) {
-        while(!emlist_is_empty(list)) {
-            emlist_pop(list);
-        }
-
+        emlist_deinitialize(list);
         free(list);
+    }
+}
+
+void emlist_deinitialize(LinkedList* list) {
+    while(!emlist_is_empty(list)) {
+        emlist_pop(list);
     }
 }
 

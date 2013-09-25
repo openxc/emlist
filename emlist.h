@@ -34,7 +34,7 @@ typedef struct LinkedListIterator LinkedListIterator;
  */
 LinkedList* emlist_create();
 
-/* Public: De-allocate memory for the list.
+/* Public: De-allocate memory for a list allocated on the heap.
  *
  * Be aware that if the list is not empty, this will leak memory - you must
  * remove and de-allocate the values in the list yourself if they were not on
@@ -48,9 +48,19 @@ void emlist_destroy(LinkedList* list);
  * If the list has already been initialized and has elements, this will leak
  * memory.
  *
- * list - the list the initialize.
+ * list - the list to initialize.
  */
 void emlist_initialize(LinkedList* list);
+
+/* Public: Free any memory associated with the list.
+ *
+ * Be aware that if the list is not empty, this will leak memory - you must
+ * remove and de-allocate the values in the list yourself if they were not on
+ * the stack.
+ *
+ * list - the list to de-initialize, created on the stack or heap.
+ */
+void emlist_deinitialize(LinkedList* list);
 
 /* Public: Check if the list contains a value.
  *
