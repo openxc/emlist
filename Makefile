@@ -1,7 +1,7 @@
 CC = g++
-CFLAGS = -I. -c -w -Wall -Werror -g -ggdb -lrt
-LDFLAGS = -lm
-LDLIBS = -lcheck
+CFLAGS = $(INCLUDES) -c -Wall -Werror -g -ggdb -std=gnu99 -coverage
+LDFLAGS = -coverage -lm
+LDLIBS = -lcheck -lm -lrt -lpthread -lsubunit
 
 TEST_DIR = tests
 
