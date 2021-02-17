@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = $(INCLUDES) -c -Wall -Werror -g -ggdb -std=gnu99 -coverage
+CFLAGS = -I. -c -w -Wall -Werror -g -ggdb
 LDFLAGS = -coverage -lm
 LDLIBS = -lcheck -lm -lrt -lpthread -lsubunit
 
