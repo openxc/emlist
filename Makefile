@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -I. -c -w -Wall -Werror -g -ggdb
+CFLAGS = -I. -c -w -Wall -Werror -g -ggdb -lrt
 LDFLAGS = -lm
 LDLIBS = -lcheck
 
